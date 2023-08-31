@@ -5,6 +5,7 @@ import { ContactFilter } from 'components/ContactFilter/ContactFilter';
 import { ContactList } from 'components/ContactList/ContactList';
 import { GlobalStyle } from 'components/GlobalStyles';
 
+
 export class App extends Component {
   state = {
     contacts: [
