@@ -5,7 +5,6 @@ import { ContactFilter } from 'components/ContactFilter/ContactFilter';
 import { ContactList } from 'components/ContactList/ContactList';
 import { GlobalStyle } from 'components/GlobalStyles';
 
-
 export class App extends Component {
   state = {
     contacts: [
@@ -24,7 +23,7 @@ export class App extends Component {
       number: number,
     };
 
-    if (this.state.contacts.some(contact => contact.name === name)) {
+    if (this.state.contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())) {
       alert(`${name} is already in contacts.`);
       return;
     }
@@ -44,10 +43,14 @@ export class App extends Component {
     this.setState({ filter: evt.target.value });
   };
 
-  render() {
-    const filteredContacts = this.state.contacts.filter(contact =>
+  getFilteredContacts = () => {
+    return this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
+  };
+
+  render() {
+    const filteredContacts = this.getFilteredContacts();
 
     return (
       <div>
@@ -55,7 +58,7 @@ export class App extends Component {
         <ContactForm onAddContact={this.addContact} />
         <h2>Contacts</h2>
         <ContactFilter filter={this.state.filter} onChange={this.handleFilterChange} />
-        <ContactList contacts={filteredContacts} onDeleteContact={this.deleteContact}/>
+        <ContactList contacts={filteredContacts} onDeleteContact={this.deleteContact} />
         <GlobalStyle />
       </div>
     );
